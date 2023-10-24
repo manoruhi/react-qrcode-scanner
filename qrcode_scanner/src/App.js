@@ -17,38 +17,45 @@ function App() {
     scanner.render(success, error);
 
     function success(result){
-      const url = "http://localhost:3001/result/"+result;
+      const url = "http://localhost:3001/result";
 
       const fetchData = async () => {
         try {
-          const response = await fetch(url);
-          const json = await response.json();
-          console.log(json);
+          const response = await fetch(url,{
+            method:"POST",
+            body:JSON.stringify({"data":result}),
+            headers:{
+              "Content-type": "application/json; charset=UTF-8",
+            }
+          });
+          const data = await response.json;
+          console.log(data);
         } catch (error) {
           console.log("error", error);
         }
       };
-  
       fetchData();
       setScanRessult(result);
+      scanner.clear();
     }
-
-
+    
     function error(err){
       console.warn(err);
     }
 
   },[]);
 
-
-  return (
-    <div className="App">
-      {scanResult
-      ? <div>Result : {scanResult}</div>
-      : <div id='reader'></div>
-      }
-    </div>
-  );
+  if(scanResult){
+    return(
+      <>
+        <div>Result : {scanResult}</div>
+      </>
+    );
+  }
+  else{
+    return(
+    <div id='reader'></div>
+    );
+  }
 }
-
 export default App;
