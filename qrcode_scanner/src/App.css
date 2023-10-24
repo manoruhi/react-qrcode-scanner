@@ -40,3 +40,26 @@
 #reader {
   width: 600px;
 }
+
+#qrcode {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#qrcode td, #qrcode th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#qrcode tr:nth-child(even){background-color: #f2f2f2;}
+
+#qrcode tr:hover {background-color: #ddd;}
+
+#qrcode th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}

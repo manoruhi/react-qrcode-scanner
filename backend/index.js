@@ -15,6 +15,11 @@ const pool = mysql.createPool({
     port: 3306
 });
 
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 const port = 3001;
 
@@ -36,6 +41,18 @@ app.post('/result', (req, res) => {
     }
 });
 
+app.get('/qrcode_data', (req,res) =>{
+    if(req.method == "GET"){
+        pool.query('SELECT * FROM qrcode_data', (error, results) => {
+            if (error) {
+                console.error(error);
+                res.status(500).send('Error retrieving users');
+            } else {
+                res.status(200).json(results);
+            }
+        });
+    }
+})
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
